@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 181f238e38f77694c85f1516054b11e5, type: 3}
+  m_Name: EquipmentDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::RealmCrawler.Core.EquipmentDatabase
+  availableHats:
+  - {fileID: 11400000, guid: 2d3e0f290981d4e41b931c1595d223ca, type: 2}
+  availableCloaks:
+  - {fileID: 11400000, guid: b7618dfce0203a949829df9903f7e3eb, type: 2}
+  availableBoots:
+  - {fileID: 11400000, guid: 748a1f89ea3c771428851ee3685277e2, type: 2}
+  availableWeapons:
+  - {fileID: 11400000, guid: 5b253059f8c9ca046bb4c65d8898c0f4, type: 2}
+  - {fileID: 11400000, guid: 05f7ba34bb969ea41ba9eedfbe6a97f5, type: 2}
+  - {fileID: 11400000, guid: ea4de169ffe4ae8468fb7e91189cd8bd, type: 2}
+  availableReliquaries:
+  - {fileID: 11400000, guid: ad56108427883e848b341c7f2183f26a, type: 2}
+  defaultHat: {fileID: 11400000, guid: 2d3e0f290981d4e41b931c1595d223ca, type: 2}
+  defaultCloak: {fileID: 11400000, guid: b7618dfce0203a949829df9903f7e3eb, type: 2}
+  defaultBoots: {fileID: 11400000, guid: 748a1f89ea3c771428851ee3685277e2, type: 2}
+  defaultWeapon: {fileID: 11400000, guid: 5b253059f8c9ca046bb4c65d8898c0f4, type: 2}
+  defaultReliquary: {fileID: 11400000, guid: ad56108427883e848b341c7f2183f26a, type: 2}

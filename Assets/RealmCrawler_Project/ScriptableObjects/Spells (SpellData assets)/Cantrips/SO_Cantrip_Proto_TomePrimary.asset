@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd78a91259d03a0418a56a1977fa2bb5, type: 3}
+  m_Name: SO_Cantrip_Proto_TomePrimary
+  m_EditorClassIdentifier: Assembly-CSharp::RealmCrawler.Spells.CantripData
+  cantripName: Proto Tome Primary Cantrip
+  description: Primary Cantrip for Prototyping Tome Weapon.
+  icon: {fileID: 21300000, guid: 691ce08a834383148b6bab4329074fd8, type: 3}
+  baseDamage: 3
+  attackSpeed: 1.5
+  projectileSpeed: 20
+  projectilePrefab: {fileID: 3683752056465817360, guid: 7fde14e1a39f48c4da9e33ab0625ba73, type: 3}
+  castSound: {fileID: 0}

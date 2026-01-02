@@ -1,0 +1,37 @@
+name: Remote Config
+version: 1.0.0
+schema: v1
+models:
+  - name: AUTODETECT
+    provider: ollama
+    model: AUTODETECT
+    apiBase: http://nightshift:11435
+    defaultCompletionOptions:
+      contextLength: 65536
+      temperature: 0.4
+      topP: 0.95
+      
+  - name: qwen2.5-coder:14b
+    provider: ollama
+    model: qwen2.5-coder:14b
+    roles:
+      - autocomplete
+      - edit
+      - apply
+      - embed
+      - chat
+      - rerank
+    autocompleteOptions:
+      debounceDelay: 250
+      disabled: false
+      modelTimeout: 2000
+      useCache: true
+      useImports: true
+      useRecentlyEdited: true
+      useRecentlyOpened: true
+      onlyMyCode: true
+
+autocomplete:
+  title: qwen2.5-coder:14b
+  provider: ollama
+  model: qwen2.5-coder:14b
