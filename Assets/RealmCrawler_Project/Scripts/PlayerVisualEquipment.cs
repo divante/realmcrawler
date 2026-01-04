@@ -1,5 +1,6 @@
 using UnityEngine;
 using RealmCrawler.Equipment;
+using RealmCrawler.Core;
 
 namespace RealmCrawler.Player
 {
@@ -8,15 +9,34 @@ namespace RealmCrawler.Player
         [Header("Equipment Slots")]
         [SerializeField] private Transform hatSlot;
         [SerializeField] private Transform cloakSlot;
-        [SerializeField] private Transform bootsSlot;
+        [SerializeField] private Transform leftBootSlot;
+        [SerializeField] private Transform rightBootSlot;
         [SerializeField] private Transform weaponSlot;
         [SerializeField] private Transform reliquarySlot;
 
         private GameObject currentHatVisual;
         private GameObject currentCloakVisual;
-        private GameObject currentBootsVisual;
+        private GameObject currentLeftBootVisual;
+        private GameObject currentRightBootVisual;
         private GameObject currentWeaponVisual;
         private GameObject currentReliquaryVisual;
+
+        public void ApplyLoadout(PlayerLoadout loadout)
+        {
+            if (loadout == null)
+            {
+                Debug.LogWarning("Loadout is null. Cannot apply equipment.");
+                return;
+            }
+
+            EquipHat(loadout.hat);
+            EquipCloak(loadout.cloak);
+            EquipBoots(loadout.boots);
+            EquipWeapon(loadout.weapon);
+            EquipReliquary(loadout.reliquary);
+
+            Debug.Log("Applied equipment loadout to player visuals.");
+        }
 
         public void EquipWeapon(WeaponData weaponData)
         {
@@ -31,6 +51,8 @@ namespace RealmCrawler.Player
             if (weaponData.WeaponVisualPrefab != null && weaponSlot != null)
             {
                 currentWeaponVisual = Instantiate(weaponData.WeaponVisualPrefab, weaponSlot);
+                currentWeaponVisual.transform.localPosition = Vector3.zero;
+                currentWeaponVisual.transform.localRotation = Quaternion.identity;
             }
         }
 
@@ -47,6 +69,8 @@ namespace RealmCrawler.Player
             if (hatData.VisualPrefab != null && hatSlot != null)
             {
                 currentHatVisual = Instantiate(hatData.VisualPrefab, hatSlot);
+                currentHatVisual.transform.localPosition = Vector3.zero;
+                currentHatVisual.transform.localRotation = Quaternion.identity;
             }
         }
 
@@ -63,6 +87,8 @@ namespace RealmCrawler.Player
             if (cloakData.VisualPrefab != null && cloakSlot != null)
             {
                 currentCloakVisual = Instantiate(cloakData.VisualPrefab, cloakSlot);
+                currentCloakVisual.transform.localPosition = Vector3.zero;
+                currentCloakVisual.transform.localRotation = Quaternion.identity;
             }
         }
 
@@ -76,10 +102,57 @@ namespace RealmCrawler.Player
 
             ClearBoots();
 
-            if (bootsData.VisualPrefab != null && bootsSlot != null)
+            if (bootsData.VisualPrefab != null)
             {
-                currentBootsVisual = Instantiate(bootsData.VisualPrefab, bootsSlot);
+                GameObject bootsPrefab = bootsData.VisualPrefab;
+
+                Transform leftBootMesh = FindChildRecursive(bootsPrefab.transform, "Left");
+                Transform rightBootMesh = FindChildRecursive(bootsPrefab.transform, "Right");
+
+                if (leftBootMesh != null && leftBootSlot != null)
+                {
+                    currentLeftBootVisual = Instantiate(bootsPrefab, leftBootSlot);
+                    currentLeftBootVisual.transform.localPosition = Vector3.zero;
+                    currentLeftBootVisual.transform.localRotation = Quaternion.identity;
+
+                    Transform rightInLeft = FindChildRecursive(currentLeftBootVisual.transform, "Right");
+                    if (rightInLeft != null)
+                    {
+                        rightInLeft.gameObject.SetActive(false);
+                    }
+                }
+
+                if (rightBootMesh != null && rightBootSlot != null)
+                {
+                    currentRightBootVisual = Instantiate(bootsPrefab, rightBootSlot);
+                    currentRightBootVisual.transform.localPosition = Vector3.zero;
+                    currentRightBootVisual.transform.localRotation = Quaternion.identity;
+
+                    Transform leftInRight = FindChildRecursive(currentRightBootVisual.transform, "Left");
+                    if (leftInRight != null)
+                    {
+                        leftInRight.gameObject.SetActive(false);
+                    }
+                }
             }
+        }
+
+        private Transform FindChildRecursive(Transform parent, string nameContains)
+        {
+            foreach (Transform child in parent)
+            {
+                if (child.name.Contains(nameContains))
+                {
+                    return child;
+                }
+
+                Transform result = FindChildRecursive(child, nameContains);
+                if (result != null)
+                {
+                    return result;
+                }
+            }
+            return null;
         }
 
         public void EquipReliquary(ReliquaryData reliquaryData)
@@ -95,6 +168,8 @@ namespace RealmCrawler.Player
             if (reliquaryData.VisualPrefab != null && reliquarySlot != null)
             {
                 currentReliquaryVisual = Instantiate(reliquaryData.VisualPrefab, reliquarySlot);
+                currentReliquaryVisual.transform.localPosition = Vector3.zero;
+                currentReliquaryVisual.transform.localRotation = Quaternion.identity;
             }
         }
 
@@ -136,10 +211,16 @@ namespace RealmCrawler.Player
 
         private void ClearBoots()
         {
-            if (currentBootsVisual != null)
+            if (currentLeftBootVisual != null)
             {
-                Destroy(currentBootsVisual);
-                currentBootsVisual = null;
+                Destroy(currentLeftBootVisual);
+                currentLeftBootVisual = null;
+            }
+
+            if (currentRightBootVisual != null)
+            {
+                Destroy(currentRightBootVisual);
+                currentRightBootVisual = null;
             }
         }
 

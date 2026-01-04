@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ui="UnityEngine.UIElements"
+    xmlns:uie="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd"
+>
+    <Style src="project://database/Assets/UI%20Toolkit/LoadoutMenuStyles.uss" />
+    
+    <ui:VisualElement name="root" class="root-container">
+        
+        <ui:VisualElement name="top-bar" class="top-bar">
+            <ui:Label name="loadout-cost" text="Loadout Cost: 0 souls" class="top-bar-text left-text" />
+            <ui:Label name="current-souls" text="Current Souls: 0" class="top-bar-text right-text" />
+        </ui:VisualElement>
+        
+        <ui:VisualElement name="main-content" class="main-content">
+            
+            <ui:VisualElement name="equipment-panel" class="panel equipment-panel">
+                <ui:Label text="EQUIPMENT" class="panel-title" />
+                
+                <ui:VisualElement name="tab-container" class="tab-container">
+                    <ui:Button name="hat-tab" text="H" class="tab-button" />
+                    <ui:Button name="cloak-tab" text="C" class="tab-button" />
+                    <ui:Button name="boots-tab" text="B" class="tab-button" />
+                    <ui:Button name="reliquary-tab" text="R" class="tab-button" />
+                    <ui:Button name="weapon-tab" text="W" class="tab-button" />
+                </ui:VisualElement>
+                
+                <ui:ListView name="equipment-list" class="equipment-list" />
+            </ui:VisualElement>
+            
+            <ui:VisualElement name="stats-panel" class="panel stats-panel">
+                <ui:Label text="STATS" class="panel-title" />
+                <ui:Label name="health-stat" text="Health: 0" class="stat-text" />
+                <ui:Label name="mana-stat" text="Mana: 0" class="stat-text" />
+                <ui:Label name="speed-stat" text="Speed: 0" class="stat-text" />
+                <ui:Label name="xp-radius-stat" text="XP Radius: 0" class="stat-text" />
+            </ui:VisualElement>
+            
+        </ui:VisualElement>
+        
+        <ui:VisualElement name="cantrip-panel" class="cantrip-panel">
+            <ui:VisualElement name="primary-cantrip" class="cantrip-slot">
+                <ui:VisualElement name="primary-icon" class="cantrip-icon" />
+                <ui:Label text="LEFT CLICK" class="cantrip-label" />
+            </ui:VisualElement>
+            <ui:VisualElement name="secondary-cantrip" class="cantrip-slot">
+                <ui:VisualElement name="secondary-icon" class="cantrip-icon" />
+                <ui:Label text="RIGHT CLICK" class="cantrip-label" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        
+        <ui:VisualElement name="button-container" class="button-container">
+            <ui:Button name="reset-camera-button" text="RESET CAMERA" class="action-button reset-camera-button" />
+            <ui:Button name="back-button" text="BACK" class="action-button back-button" />
+            <ui:Button name="play-button" text="PLAY" class="action-button play-button" />
+        </ui:VisualElement>
+        
+        <ui:VisualElement name="detail-popup" class="detail-popup" style="display: none;">
+            <ui:VisualElement class="popup-content">
+                <ui:VisualElement name="equipment-icon-large" class="equipment-icon-large" />
+                <ui:Label name="equipment-name" text="Equipment Name" class="equipment-name" />
+                <ui:Label name="equipment-stats" text="Stats: +10 Health" class="equipment-detail-text" />
+                <ui:Label name="equipment-buff" text="Buff: Fire +20%" class="equipment-detail-text" />
+                <ui:Label name="equipment-cost" text="Cost: 100 souls" class="equipment-cost-text" />
+                
+                <ui:VisualElement class="popup-buttons">
+                    <ui:Button name="purchase-button" text="PURCHASE" class="popup-button purchase-button" />
+                    <ui:Button name="popup-back-button" text="BACK" class="popup-button" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        
+        <ui:VisualElement name="cantrip-tooltip" class="cantrip-tooltip" style="display: none;">
+            <ui:Label name="cantrip-tooltip-name" text="Cantrip Name" class="tooltip-name" />
+            <ui:Label name="cantrip-tooltip-desc" text="Cantrip Description" class="tooltip-desc" />
+            <ui:Label name="cantrip-tooltip-stats" text="Stats" class="tooltip-stats" />
+        </ui:VisualElement>
+        
+    </ui:VisualElement>
+</ui:UXML>

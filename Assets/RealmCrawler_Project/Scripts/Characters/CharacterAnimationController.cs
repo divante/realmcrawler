@@ -6,9 +6,7 @@ using Vector3 = UnityEngine.Vector3;
 public class CharacterAnimationController : MonoBehaviour
 {
   [SerializeField] private ICharacterPhysics physics;
-  [SerializeField] private float turnThreshold = 5f; // degrees per second
-  [SerializeField] private float turnCooldownTimer = 0.5f; // check every x seconds
-  private float currentTurnCooldownTimer = 0f;
+  [SerializeField] private float turnThreshold = 90f; // degrees per second
 
   private Vector3 currentVelocity;
   private Vector3 movementDirection;
@@ -68,9 +66,8 @@ public class CharacterAnimationController : MonoBehaviour
   {
 
     Vector3 currentYRotation = GetForward();
-    float angleDelta = Vector3.SignedAngle(previousYRotation, currentYRotation, Vector3.up);
+    float angleDelta = Vector3.SignedAngle(previousYRotation, currentYRotation, Vector3.up) / Time.deltaTime;
 
-    Debug.Log("TURN! " + angleDelta);
     if (Math.Abs(angleDelta) > turnThreshold)
     {
       animator.SetFloat(animParamTurningHash, angleDelta);

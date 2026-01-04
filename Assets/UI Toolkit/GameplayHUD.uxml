@@ -1,0 +1,68 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="GameplayHUDStyles.uss" />
+    <ui:VisualElement name="root" class="hud-root">
+        
+        <!-- TOP LEFT: Health and Mana -->
+        <ui:VisualElement name="top-left-container" class="top-left-container">
+            <!-- Health Row -->
+            <ui:VisualElement name="health-row" class="stat-row">
+                <ui:VisualElement name="health-icon" class="stat-icon health-icon" />
+                <ui:Label name="health-value" text="100" class="stat-value" />
+                <ui:VisualElement name="health-bar-container" class="bar-container">
+                    <ui:VisualElement name="health-bar-fill" class="bar-fill health-bar" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            
+            <!-- Mana Row -->
+            <ui:VisualElement name="mana-row" class="stat-row">
+                <ui:VisualElement name="mana-icon" class="stat-icon mana-icon" />
+                <ui:Label name="mana-value" text="80" class="stat-value" />
+                <ui:VisualElement name="mana-bar-container" class="bar-container">
+                    <ui:VisualElement name="mana-bar-fill" class="bar-fill mana-bar" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        
+        <!-- TOP MIDDLE: Wave and XP -->
+        <ui:VisualElement name="top-middle-container" class="top-middle-container">
+            <ui:Label name="wave-number" text="Wave 1" class="wave-text" />
+            <ui:VisualElement name="xp-bar-container" class="xp-bar-container">
+                <ui:VisualElement name="xp-bar-fill" class="xp-bar-fill" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        
+        <!-- TOP RIGHT: Pause Menu -->
+        <ui:VisualElement name="top-right-container" class="top-right-container">
+            <ui:Button name="pause-button" class="pause-button">
+                <ui:VisualElement name="pause-icon" class="pause-icon" />
+            </ui:Button>
+        </ui:VisualElement>
+        
+        <!-- BOTTOM LEFT: Cantrips and Spells -->
+        <ui:VisualElement name="bottom-left-container" class="bottom-left-container">
+            <!-- Cantrips Row -->
+            <ui:VisualElement name="cantrips-container" class="cantrips-container">
+                <ui:VisualElement name="primary-cantrip" class="cantrip-slot primary-cantrip">
+                    <ui:VisualElement name="primary-cantrip-icon" class="cantrip-icon" />
+                </ui:VisualElement>
+                <ui:VisualElement name="secondary-cantrip" class="cantrip-slot secondary-cantrip">
+                    <ui:VisualElement name="secondary-cantrip-icon" class="cantrip-icon" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            
+            <!-- Spell Slots Row -->
+            <ui:VisualElement name="spell-slots-container" class="spell-slots-container">
+                <ui:VisualElement name="spell-slot-1" class="spell-slot">
+                    <ui:Label name="spell-keybind-1" text="1" class="spell-keybind" />
+                </ui:VisualElement>
+                <ui:VisualElement name="spell-slot-2" class="spell-slot">
+                    <ui:Label name="spell-keybind-2" text="2" class="spell-keybind" />
+                </ui:VisualElement>
+                <ui:VisualElement name="spell-slot-3" class="spell-slot">
+                    <ui:Label name="spell-keybind-3" text="3" class="spell-keybind" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        
+    </ui:VisualElement>
+</ui:UXML>
