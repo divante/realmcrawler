@@ -82,6 +82,13 @@ namespace RealmCrawler.Core
             Debug.Log($"Added {amount} souls. Total: {souls}");
         }
 
+        public void ModifySouls(int amount)
+        {
+            souls += amount;
+            souls = Mathf.Max(0, souls);
+            Debug.Log($"Modified souls by {amount}. Total: {souls}");
+        }
+
         public void SetLoadout(HatData hat, CloakData cloak, BootsData boots, WeaponData weapon, ReliquaryData reliquary)
         {
             currentLoadout.hat = hat;
@@ -179,17 +186,12 @@ namespace RealmCrawler.Core
             stats.baseSpeed = 10f;
             stats.baseXpRadius = 5f;
 
-            if (hat != null)
-                stats.totalMana = stats.baseMana + hat.ManaBonus;
-            
-            if (cloak != null)
-                stats.totalHealth = stats.baseHealth + cloak.HealthBonus;
-            
-            if (boots != null)
-                stats.totalSpeed = stats.baseSpeed * boots.SpeedMultiplier;
-            
-            if (reliquary != null)
-                stats.totalXpRadius = stats.baseXpRadius + reliquary.XpCollectRadiusBonus;
+            // NOTE: Old direct stat bonus system removed - use StatModifierBase system instead
+            // Equipment now applies bonuses via ApplyModifiers(CharacterData) method
+            stats.totalMana = stats.baseMana;
+            stats.totalHealth = stats.baseHealth;
+            stats.totalSpeed = stats.baseSpeed;
+            stats.totalXpRadius = stats.baseXpRadius;
 
             return stats;
         }

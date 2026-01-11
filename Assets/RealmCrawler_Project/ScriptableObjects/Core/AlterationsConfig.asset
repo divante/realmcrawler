@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: AlterationsConfig
+  m_EditorClassIdentifier: Assembly-CSharp:RealmCrawler.UI:AlterationsConfig
+  rerollCostPerModifier: 50
+  modifierPool:
+  - {fileID: 11400000, guid: feaf3ec69fe558944b77ce429433e0de, type: 2}
+  - {fileID: 11400000, guid: 3e473503dd89e7d4e882cc30cda48314, type: 2}
+  - {fileID: 11400000, guid: f0b3476fd08a19c4a837d84ab883fc60, type: 2}
+  - {fileID: 11400000, guid: 1974f4366cc7b504d999287529670dee, type: 2}
+  - {fileID: 11400000, guid: 2c7d369c1c3cbfa46885715350a533ee, type: 2}

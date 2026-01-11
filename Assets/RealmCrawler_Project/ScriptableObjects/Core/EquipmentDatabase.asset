@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RealmCrawler.Core.EquipmentDatabase
   availableHats:
   - {fileID: 11400000, guid: 2d3e0f290981d4e41b931c1595d223ca, type: 2}
+  - {fileID: 11400000, guid: e9de0bc7b38607e4287f27b2a9714b99, type: 2}
   availableCloaks:
   - {fileID: 11400000, guid: b7618dfce0203a949829df9903f7e3eb, type: 2}
+  - {fileID: 11400000, guid: d6ca68dbe1092ac42822b4c010d1c433, type: 2}
   availableBoots:
   - {fileID: 11400000, guid: 748a1f89ea3c771428851ee3685277e2, type: 2}
   availableWeapons:

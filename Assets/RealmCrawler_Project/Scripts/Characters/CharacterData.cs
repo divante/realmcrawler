@@ -1,15 +1,18 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using RealmCrawler.CharacterStats;
-using System.Collections;
+using System.Collections.Concurrent;
 
 public class CharacterData : MonoBehaviour
 {
   [SerializeField] private List<StatData> baseStats = new();
-  private readonly Dictionary<StatData, float> currentValues = new();
-  private readonly List<ActiveModifier> activeModifiers = new();
-  private readonly Dictionary<ActiveModifier, Coroutine> activeModifierCoroutines = new();
+  private readonly ConcurrentDictionary<Guid, float> currentValues = new();
+  private readonly List<StatModifierHandlerBase> preModifiers = new();
+  private readonly List<StatModifierHandlerBase> postModifiers = new();
 
+
+  private bool _isDirty = true;
   private void Awake()
   {
     InitializeStats();
@@ -17,141 +20,116 @@ public class CharacterData : MonoBehaviour
 
   private void InitializeStats()
   {
-    // Initialize current values with base stats
+    if (baseStats == null) return;
+    // Debug.Log($"CharacterData.InitializeStats: Initializing {baseStats.Count} stats");
     foreach (var stat in baseStats)
     {
-      currentValues[stat] = stat.BaseValue;
+      currentValues[stat.UUID] = stat.BaseValue;
+      // Debug.Log($"CharacterData.InitializeStats: {stat.StatName} - UUID: {stat.UUID}, BaseValue: {stat.BaseValue}");
     }
   }
 
   private void Update()
   {
-    // Check for expired modifiers
-    for (int i = activeModifiers.Count - 1; i >= 0; i--)
-    {
-      if (activeModifiers[i].IsExpired())
-      {
-        RemoveModifier(activeModifiers[i]);
-      }
-    }
-  }
-
-  public void AddModifier(StatModifierBase modifierTemplate, float value, float duration = -1)
-  {
-    // Check for existing stacks of this modifier
-    ActiveModifier existingModifier = activeModifiers.Find(m =>
-      m.ModifierTemplate == modifierTemplate);
-
-    if (existingModifier != null)
-    {
-      // Handle stacking
-      if (existingModifier.ModifierTemplate.StackMax == -1 ||
-          existingModifier.StackCount < existingModifier.ModifierTemplate.StackMax)
-      {
-        existingModifier.AddStack();
-        RecalculateStats();
-        return;
-      }
-      return; // Can't stack further
-    }
-
-    // Create new active modifier
-    var newModifier = new ActiveModifier(modifierTemplate, value, this, duration);
-    activeModifiers.Add(newModifier);
-
-    // Start the duration handler coroutine if duration > 0
-    if (duration > 0)
-    {
-      Coroutine durationCoroutine = StartCoroutine(newModifier.HandleDuration());
-      activeModifierCoroutines[newModifier] = durationCoroutine;
-    }
-
+    if (!_isDirty) return;
     RecalculateStats();
   }
 
-  public void RemoveModifier(ActiveModifier modifier)
+  public void AddModifier(StatModifierBase modifier)
   {
-    // Stop the duration coroutine if it's running
-    if (activeModifierCoroutines.TryGetValue(modifier, out Coroutine coroutine))
+    if (modifier == null)
     {
-      StopCoroutine(coroutine);
-      activeModifierCoroutines.Remove(modifier);
+      Debug.LogWarning("CharacterData.AddModifier: modifier is null");
+      return;
     }
 
-    activeModifiers.Remove(modifier);
-    RecalculateStats();
+    Debug.Log($"CharacterData.AddModifier: Adding modifier {modifier.name}, Type: {modifier.GetType().Name}");
+
+    GameObject handlerObj = new GameObject($"{modifier.name}_Handler");
+    handlerObj.transform.SetParent(transform);
+
+    StatModifierHandlerBase newModifierHandler = null;
+
+    if (modifier is SimpleStatModifier)
+    {
+      newModifierHandler = handlerObj.AddComponent<SimpleStatModifierHandler>();
+      Debug.Log($"CharacterData.AddModifier: Created SimpleStatModifierHandler for {modifier.name}");
+    }
+    else
+    {
+      Debug.LogError($"Unknown modifier type for modifier: {modifier.name}");
+      Destroy(handlerObj);
+      return;
+    }
+
+    if (newModifierHandler == null)
+    {
+      Debug.LogError($"Failed to create handler for modifier: {modifier.name}");
+      Destroy(handlerObj);
+      return;
+    }
+    newModifierHandler.Initialize(modifier, this);
+    if (modifier.Phase.Equals(ModifierPhase.PreProcess))
+      preModifiers.Add(newModifierHandler);
+    else
+      postModifiers.Add(newModifierHandler);
+
+    newModifierHandler.Apply();
+    _isDirty = true;
+    Debug.Log($"CharacterData.AddModifier: Successfully added modifier {modifier.name}, Phase: {modifier.Phase}");
+  }
+
+  public void RemoveModifier(StatModifierHandlerBase modifier)
+  {
+    if (!preModifiers.Remove(modifier) && !postModifiers.Remove(modifier))
+    {
+      Debug.LogWarning("Modifier not found: " + modifier.ToString());
+      return;
+    }
+
+    modifier.Remove();
+    Destroy(modifier.gameObject);
+    _isDirty = true;
   }
 
   private void RecalculateStats()
   {
+    // Debug.Log("CharacterData.RecalculateStats: Starting recalculation");
     // Reset to base values
     foreach (var stat in baseStats)
     {
-      currentValues[stat] = stat.BaseValue;
+      currentValues[stat.UUID] = stat.BaseValue;
+      // Debug.Log($"CharacterData.RecalculateStats: Reset {stat.StatName} to {stat.BaseValue}");
     }
 
-    // Apply all active modifiers
-    foreach (var modifier in activeModifiers)
+    // Apply pre-process modifiers
+    foreach (var modifier in preModifiers)
     {
-      modifier.ModifierTemplate.Apply(this, modifier.Value, modifier.StackCount);
+      modifier.Apply();
     }
+
+    // Apply post-process modifiers
+    foreach (var modifier in postModifiers)
+    {
+      modifier.Apply();
+    }
+
+    _isDirty = false;
+    Debug.Log("CharacterData.RecalculateStats: Finished recalculation");
   }
 
   public float GetStatValue(StatData stat)
   {
-    return currentValues.TryGetValue(stat, out float value) ? value : stat.BaseValue;
+    float value = currentValues.TryGetValue(stat.UUID, out float v) ? v : stat.BaseValue;
+    Debug.Log($"CharacterData.GetStatValue: {stat.StatName} - UUID: {stat.UUID}, currentValues has key: {currentValues.ContainsKey(stat.UUID)}, returned value: {value}");
+    return value;
   }
 
   public void SetStatValue(StatData stat, float value)
   {
-    currentValues[stat] = value;
-  }
+    if (value.Equals(currentValues[stat.UUID])) return;
 
-  // Active modifier class to track modifier state
-  public class ActiveModifier
-  {
-    public StatModifierBase ModifierTemplate { get; }
-    public float Value { get; private set; }
-    public int StackCount { get; private set; }
-    public float StartTime { get; private set; }
-    public float Duration { get; private set; }
-    private readonly CharacterData _owner;
-
-    public ActiveModifier(StatModifierBase template, float value, CharacterData owner, float duration = -1)
-    {
-      ModifierTemplate = template;
-      Value = value;
-      StackCount = 1;
-      StartTime = Time.time;
-      Duration = duration;
-      _owner = owner;
-
-      // Play particle effect if available
-      if (template.ParticleEffect != null)
-      {
-        var effect = Instantiate(template.ParticleEffect, _owner.transform.position, Quaternion.identity);
-        effect.Play();
-        Destroy(effect.gameObject, effect.main.duration);
-      }
-    }
-
-    public void AddStack()
-    {
-      StackCount++;
-    }
-
-    public bool IsExpired()
-    {
-      return Duration >= 0 && Time.time - StartTime >= Duration;
-    }
-
-    public IEnumerator HandleDuration()
-    {
-      // Wait for the duration
-      yield return new WaitForSeconds(Duration);
-
-      // Remove the modifier
-      _owner.RemoveModifier(this);
-    }
+    currentValues[stat.UUID] = value;
+    _isDirty = true;
   }
 }

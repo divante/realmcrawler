@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18d57fbed3c1be647bcf2c2d49a6f111, type: 3}
+  m_Name: So_Proto_Cloak_II
+  m_EditorClassIdentifier: Assembly-CSharp::RealmCrawler.Equipment.CloakData
+  itemName: Proto Cloak II
+  flavorText: This is a test Cloak equipment. This Cloak is Prototype Cloak I. Common
+    Rarity with Static Modifier
+  itemIcon: {fileID: 0}
+  category: 1
+  rarity: 0
+  spell: {fileID: 0}
+  staticModifier: {fileID: 11400000, guid: 2257a13b13332fe4489924b100be47f3, type: 2}
+  modifiers:
+  - {fileID: 11400000, guid: 1974f4366cc7b504d999287529670dee, type: 2}
+  rentalCost: 0
+  visualPrefab: {fileID: 6595688988162227566, guid: d1137aaa43e36b24bb5324d319c12890, type: 3}

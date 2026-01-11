@@ -1,0 +1,180 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <Style src="project://database/Assets/RealmCrawler_Project/UI/HubStyles.uss" />
+    
+    <ui:VisualElement name="root" picking-mode="Ignore" class="npc-container">
+        <!-- Main Menu Panel -->
+        <ui:VisualElement name="main-menu-panel" style="flex-grow: 1; align-items: center; justify-content: center;">
+            <!-- NPC Dialogue Box -->
+            <ui:VisualElement class="npc-dialogue-box">
+                <ui:Label name="npc-dialogue" text="Welcome, traveler. What can I help you with?" class="npc-dialogue-text" />
+                <ui:Label name="souls-label" text="Souls: 0" style="font-size: 18px; color: rgb(255, 215, 0); margin-top: 10px;" />
+            </ui:VisualElement>
+            
+            <!-- Service Buttons -->
+            <ui:VisualElement class="npc-services">
+                <ui:Button name="shop-wares-button" text="SHOP WARES" class="service-button" />
+                <ui:Button name="alterations-button" text="ALTERATIONS" class="service-button" />
+            </ui:VisualElement>
+            
+            <!-- Back Button - Bottom Left -->
+            <ui:VisualElement style="position: absolute; bottom: 20px; left: 20px;">
+                <ui:Button name="back-button" text="← BACK" class="back-button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        
+        <!-- Shop Wares Panel (3-column layout) -->
+        <ui:VisualElement name="shop-wares-panel" style="flex-grow: 1; display: none;">
+            <!-- Back Button - Bottom Left -->
+            <ui:VisualElement style="position: absolute; bottom: 20px; left: 20px; z-index: 1000;">
+                <ui:Button name="shop-back-button" text="← BACK" class="back-button" />
+            </ui:VisualElement>
+            
+            <!-- Currency Display -->
+            <ui:VisualElement style="position: absolute; top: 20px; right: 20px; z-index: 100;">
+                <ui:Label name="shop-souls-label" text="Souls: 0" style="font-size: 22px; color: rgb(255, 215, 0); -unity-font-style: bold;" />
+            </ui:VisualElement>
+            
+            <!-- Main Container with Three Panels -->
+            <ui:VisualElement style="flex-direction: row; flex-grow: 1; padding: 80px 20px 80px 20px;" picking-mode="Ignore">
+                
+                <!-- LEFT PANEL: NPC Offerings -->
+                <ui:VisualElement style="flex-grow: 1; min-width: 350px; margin-right: 10px;">
+                    <!-- Header with Category Tabs -->
+                    <ui:VisualElement class="chest-header" style="margin-bottom: 15px;">
+                        <ui:Label name="npc-category-label" text="Shop Inventory" class="panel-title" style="font-size: 28px; color: white; margin-bottom: 10px;" />
+                        
+                        <ui:VisualElement class="category-tabs" style="flex-direction: row; flex-wrap: wrap; gap: 5px;">
+                            <ui:Button name="npc-all-tab" text="ALL" class="category-tab category-tab--active" />
+                            <ui:Button name="npc-hat-tab" text="HATS" class="category-tab" />
+                            <ui:Button name="npc-cloak-tab" text="CLOAKS" class="category-tab" />
+                            <ui:Button name="npc-boots-tab" text="BOOTS" class="category-tab" />
+                            <ui:Button name="npc-weapon-tab" text="WEAPONS" class="category-tab" />
+                            <ui:Button name="npc-reliquary-tab" text="RELIQUARIES" class="category-tab" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    
+                    <!-- NPC Inventory List -->
+                    <ui:ScrollView style="flex-grow: 1;">
+                        <ui:ListView name="npc-inventory-list" style="flex-grow: 1; min-height: 400px;" />
+                    </ui:ScrollView>
+                </ui:VisualElement>
+                
+                <!-- MIDDLE PANEL: Item Detail -->
+                <ui:VisualElement style="width: 350px; min-width: 350px; margin: 0 10px;">
+                    
+                    <!-- Detail Panel (shown when item selected) -->
+                    <ui:VisualElement name="item-detail-panel" style="background-color: rgba(20, 20, 20, 0.95); padding: 20px; border-radius: 8px; display: none; height: 100%;">
+                        
+                        <ui:Label text="ITEM DETAILS" style="font-size: 22px; color: white; margin-bottom: 15px; -unity-text-align: upper-center; -unity-font-style: bold;" />
+                        
+                        <!-- Item Icon -->
+                        <ui:VisualElement name="detail-icon" style="width: 150px; height: 150px; margin: 0 auto 20px auto; background-color: rgba(50, 50, 50, 0.8); border-radius: 8px; border-width: 2px; border-color: rgba(100, 100, 100, 0.5);" />
+                        
+                        <!-- Item Name -->
+                        <ui:Label name="detail-name" text="Item Name" style="font-size: 24px; color: rgb(255, 215, 0); margin-bottom: 10px; -unity-text-align: upper-center; -unity-font-style: bold;" />
+                        
+                        <!-- Item Price/Value -->
+                        <ui:Label name="detail-price" text="Price: 100 Souls" style="font-size: 18px; color: rgb(180, 255, 180); margin-bottom: 15px; -unity-text-align: upper-center;" />
+                        
+                        <!-- Item Stats/Description -->
+                        <ui:ScrollView style="flex-grow: 1; margin-bottom: 20px;">
+                            <ui:Label name="detail-stats" text="Stats will appear here" style="font-size: 16px; color: white; white-space: normal;" picking-mode="Ignore" />
+                        </ui:ScrollView>
+                        
+                        <!-- Action Button -->
+                        <ui:Button name="action-button" text="PURCHASE" style="width: 100%; height: 50px; font-size: 20px; background-color: rgb(40, 120, 40); -unity-font-style: bold; margin-top: auto;" />
+                        
+                    </ui:VisualElement>
+                    
+                    <!-- Placeholder when no item selected -->
+                    <ui:VisualElement name="no-item-selected-panel" style="background-color: rgba(20, 20, 20, 0.7); padding: 20px; border-radius: 8px; align-items: center; justify-content: center; height: 100%;">
+                        <ui:Label text="← Select an item to view details" style="font-size: 18px; color: rgba(150, 150, 150, 1); white-space: normal; -unity-text-align: middle-center;" />
+                    </ui:VisualElement>
+                    
+                </ui:VisualElement>
+                
+                <!-- RIGHT PANEL: Player Inventory -->
+                <ui:VisualElement style="flex-grow: 1; min-width: 350px; margin-left: 10px;">
+                    <!-- Header -->
+                    <ui:VisualElement class="chest-header" style="margin-bottom: 15px;">
+                        <ui:Label text="Your Inventory" class="panel-title" style="font-size: 28px; color: white; margin-bottom: 10px;" />
+                    </ui:VisualElement>
+                    
+                    <!-- Player Inventory List -->
+                    <ui:ScrollView style="flex-grow: 1;">
+                        <ui:ListView name="player-inventory-list" style="flex-grow: 1; min-height: 400px;" />
+                    </ui:ScrollView>
+                </ui:VisualElement>
+                
+            </ui:VisualElement>
+        </ui:VisualElement>
+        
+        <!-- Alterations Panel (placeholder for future) -->
+        <ui:VisualElement name="alterations-panel" style="flex-grow: 1; display: none;">
+            <!-- Back Button - Bottom Left -->
+            <ui:VisualElement style="position: absolute; bottom: 20px; left: 20px; z-index: 1000;">
+                <ui:Button name="alterations-back-button" text="← BACK" class="back-button" />
+            </ui:VisualElement>
+            
+            <!-- Currency Display -->
+            <ui:VisualElement style="position: absolute; top: 20px; right: 20px; z-index: 100;">
+                <ui:Label name="alterations-souls-label" text="Souls: 0" style="font-size: 22px; color: rgb(255, 215, 0); -unity-font-style: bold;" />
+            </ui:VisualElement>
+            
+            <!-- Main Container with Two Panels -->
+            <ui:VisualElement style="flex-direction: row; flex-grow: 1; padding: 80px 20px 80px 20px;" picking-mode="Ignore">
+                
+                <!-- LEFT PANEL: Player Inventory -->
+                <ui:VisualElement style="flex-grow: 1; min-width: 400px; margin-right: 20px;">
+                    <!-- Header -->
+                    <ui:VisualElement class="chest-header" style="margin-bottom: 15px;">
+                        <ui:Label text="Your Inventory" class="panel-title" style="font-size: 28px; color: white; margin-bottom: 10px;" />
+                    </ui:VisualElement>
+                    
+                    <!-- Inventory List -->
+                    <ui:ScrollView style="flex-grow: 1;">
+                        <ui:ListView name="alterations-inventory-list" style="flex-grow: 1; min-height: 400px;" />
+                    </ui:ScrollView>
+                </ui:VisualElement>
+                
+                <!-- RIGHT PANEL: Item Detail & Reroll Options -->
+                <ui:VisualElement style="width: 450px; min-width: 450px;">
+                    
+                    <!-- Detail Panel (shown when item selected) -->
+                    <ui:VisualElement name="alterations-detail-panel" style="background-color: rgba(20, 20, 20, 0.95); padding: 20px; border-radius: 8px; display: none; height: 100%;">
+                        
+                        <ui:Label text="ITEM ALTERATION" style="font-size: 22px; color: white; margin-bottom: 15px; -unity-text-align: upper-center; -unity-font-style: bold;" />
+                        
+                        <!-- Item Icon -->
+                        <ui:VisualElement name="alterations-detail-icon" style="width: 100px; height: 100px; margin: 0 auto 15px auto; background-color: rgba(50, 50, 50, 0.8); border-radius: 8px; border-width: 2px; border-color: rgba(100, 100, 100, 0.5);" />
+                        
+                        <!-- Item Name -->
+                        <ui:Label name="alterations-detail-name" text="Item Name" style="font-size: 20px; color: rgb(255, 215, 0); margin-bottom: 15px; -unity-text-align: upper-center; -unity-font-style: bold;" />
+                        
+                        <!-- Instructions -->
+                        <ui:Label text="Select modifiers to reroll:" style="font-size: 16px; color: rgb(200, 200, 200); margin-bottom: 10px;" />
+                        
+                        <!-- Modifier List with Toggles -->
+                        <ui:ScrollView name="modifiers-scroll" style="flex-grow: 1; margin-bottom: 15px; max-height: 300px;">
+                            <ui:VisualElement name="modifiers-container" style="flex-grow: 1;" />
+                        </ui:ScrollView>
+                        
+                        <!-- Cost Display -->
+                        <ui:Label name="reroll-cost-label" text="Cost: 0 Souls" style="font-size: 18px; color: rgb(180, 255, 180); margin-bottom: 15px; -unity-text-align: upper-center; -unity-font-style: bold;" />
+                        
+                        <!-- Reroll Button -->
+                        <ui:Button name="reroll-button" text="REROLL SELECTED" style="width: 100%; height: 50px; font-size: 20px; background-color: rgb(120, 40, 120); -unity-font-style: bold;" />
+                        
+                    </ui:VisualElement>
+                    
+                    <!-- Placeholder when no item selected -->
+                    <ui:VisualElement name="alterations-no-selection-panel" style="background-color: rgba(20, 20, 20, 0.7); padding: 20px; border-radius: 8px; align-items: center; justify-content: center; height: 100%;">
+                        <ui:Label text="← Select an item to alter its modifiers" style="font-size: 18px; color: rgba(150, 150, 150, 1); white-space: normal; -unity-text-align: middle-center;" />
+                    </ui:VisualElement>
+                    
+                </ui:VisualElement>
+                
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,49 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <Style src="project://database/Assets/RealmCrawler_Project/UI/HubStyles.uss" />
+    
+    <ui:VisualElement name="root" picking-mode="Ignore" class="main-hub-container">
+        <!-- Left Panel: Stats & Buffs -->
+        <ui:VisualElement class="left-panel">
+            <ui:Label text="Current Stats" class="panel-title" />
+            
+            <ui:VisualElement name="stats-panel" class="stats-panel">
+                <!-- Stats will be added dynamically from CharacterData -->
+            </ui:VisualElement>
+            
+            <ui:Label text="Active Buffs" class="panel-title" />
+            <ui:VisualElement name="buffs-panel" class="buffs-panel">
+                <!-- Buff icons will be added dynamically -->
+            </ui:VisualElement>
+        </ui:VisualElement>
+        
+        <!-- Center Panel: Buttons -->
+        <ui:VisualElement class="center-panel">
+            <ui:Button name="start-run-button" text="START RUN" class="hub-button" />
+            <ui:Button name="settings-button" text="SETTINGS" class="hub-button" />
+            <ui:Button name="main-menu-button" text="MAIN MENU" class="hub-button" />
+        </ui:VisualElement>
+        
+        <!-- Right Panel: Cantrips -->
+        <ui:VisualElement class="right-panel">
+            <ui:Label text="Equipped Cantrips" class="panel-title" />
+            
+            <ui:VisualElement name="cantrips-panel" class="cantrips-panel">
+                <ui:VisualElement name="primary-cantrip-slot" class="cantrip-slot">
+                    <ui:Label text="L-Click" class="cantrip-name" />
+                    <ui:Label name="primary-cantrip-name" text="Primary" class="cantrip-name" />
+                </ui:VisualElement>
+                
+                <ui:VisualElement name="secondary-cantrip-slot" class="cantrip-slot">
+                    <ui:Label text="R-Click" class="cantrip-name" />
+                    <ui:Label name="secondary-cantrip-name" text="Secondary" class="cantrip-name" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    
+    <!-- Tooltip (hidden by default) -->
+    <ui:VisualElement name="cantrip-tooltip" class="cantrip-tooltip">
+        <ui:Label name="tooltip-cantrip-name" text="Cantrip Name" class="tooltip-name" />
+        <ui:Label name="tooltip-cantrip-description" text="Description here" class="tooltip-description" />
+    </ui:VisualElement>
+</ui:UXML>

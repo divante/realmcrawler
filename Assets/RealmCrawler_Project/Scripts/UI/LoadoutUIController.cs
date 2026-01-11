@@ -453,7 +453,7 @@ namespace RealmCrawler.UI
                 itemName = hat.EquipmentName;
                 cost = hat.RentalCost;
                 iconSprite = hat.Icon;
-                statsText = $"Mana Bonus: +{hat.ManaBonus}";
+                statsText = GetModifierStatsText(hat);
                 isEquipped = gameManager.CurrentLoadout.hat == hat;
             }
             else if (equipment is CloakData cloak)
@@ -461,7 +461,7 @@ namespace RealmCrawler.UI
                 itemName = cloak.EquipmentName;
                 cost = cloak.RentalCost;
                 iconSprite = cloak.Icon;
-                statsText = $"Health Bonus: +{cloak.HealthBonus}";
+                statsText = GetModifierStatsText(cloak);
                 isEquipped = gameManager.CurrentLoadout.cloak == cloak;
             }
             else if (equipment is BootsData boots)
@@ -469,7 +469,7 @@ namespace RealmCrawler.UI
                 itemName = boots.EquipmentName;
                 cost = boots.RentalCost;
                 iconSprite = boots.Icon;
-                statsText = $"Speed Multiplier: x{boots.SpeedMultiplier:F2}";
+                statsText = GetModifierStatsText(boots);
                 isEquipped = gameManager.CurrentLoadout.boots == boots;
             }
             else if (equipment is ReliquaryData reliquary)
@@ -477,7 +477,7 @@ namespace RealmCrawler.UI
                 itemName = reliquary.EquipmentName;
                 cost = reliquary.RentalCost;
                 iconSprite = reliquary.Icon;
-                statsText = $"XP Radius Bonus: +{reliquary.XpCollectRadiusBonus}";
+                statsText = GetModifierStatsText(reliquary);
                 isEquipped = gameManager.CurrentLoadout.reliquary == reliquary;
             }
             else if (equipment is WeaponData weapon)
@@ -727,6 +727,34 @@ namespace RealmCrawler.UI
 
             Debug.Log("Starting game with selected loadout!");
             SceneManager.LoadScene("Scene_GameplayTest");
+        }
+
+        private string GetModifierStatsText(EquipmentData equipment)
+        {
+            if (equipment == null) return "No stats";
+            
+            string text = "";
+            int modCount = 0;
+            
+            if (equipment.StaticModifier != null)
+            {
+                text += $"• {equipment.StaticModifier.name}\n";
+                modCount++;
+            }
+            
+            foreach (var mod in equipment.Modifiers)
+            {
+                if (mod != null)
+                {
+                    text += $"• {mod.name}\n";
+                    modCount++;
+                }
+            }
+            
+            if (modCount == 0)
+                return "No modifiers";
+            
+            return text.TrimEnd('\n');
         }
     }
 }

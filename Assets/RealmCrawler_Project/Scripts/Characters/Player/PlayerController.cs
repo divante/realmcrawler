@@ -1,39 +1,49 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, ICharacterController
 {
-
-  [SerializeField] private ICharacterPhysics physics;
+  public event Action<Vector2> OnMoveEvent;
+  public event Action<Vector2> OnLookEvent;
 
   public float rotationSpeed = 5f;
 
-  Vector2 moveInput;
-  Vector2 mousePosition;
+  public Vector2 currentMoveInput { get; private set; }
+  public Vector2 mousePosition { get; private set; }
+
+  // private StateMachine stateMachine;
 
   void Start()
   {
-    physics = GetComponent<ICharacterPhysics>();
+    // stateMachine = new StateMachine();
+    // stateMachine.Initialize(new IdleState(gameObject));
   }
 
   void Update()
   {
-    LookAtMouse();
+    // stateMachine.Update();
+    HandleRotation();
+  }
+
+  void FixedUpdate()
+  {
+    // stateMachine.FixedUpdate();
   }
 
   public void OnMove(InputAction.CallbackContext context)
   {
-    moveInput = context.ReadValue<Vector2>();
-    physics.TryMove(moveInput);
+    currentMoveInput = context.ReadValue<Vector2>();
+    OnMoveEvent?.Invoke(currentMoveInput);
   }
 
   public void OnMouseMove(InputAction.CallbackContext context)
   {
     mousePosition = context.ReadValue<Vector2>();
-
+    OnLookEvent?.Invoke(mousePosition);
   }
 
-  private void LookAtMouse()
+  public void HandleRotation()
   {
     Ray cameraRay = Camera.main.ScreenPointToRay(mousePosition);
     RaycastHit cameraRayHit;
@@ -42,12 +52,8 @@ public class PlayerController : MonoBehaviour
       return;
 
     Vector3 targetPosition = new Vector3(cameraRayHit.point.x, transform.position.y, cameraRayHit.point.z);
-    // Calculate the target rotation
     Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
 
-    // Smoothly interpolate towards the target rotation over time
     transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
   }
 }
-
-

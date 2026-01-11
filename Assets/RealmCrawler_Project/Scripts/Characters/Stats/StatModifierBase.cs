@@ -1,22 +1,30 @@
 using UnityEngine;
+using System.Collections;
+using System;
 
 namespace RealmCrawler.CharacterStats
 {
-  public enum ModifierType { Flat, Percent }
+  // Wether the modifier should be applied before or after. Useful for scenarios where there are Flat
+  // and percent modifiers, so flat are applied before all percent modifiers.
+  public enum ModifierPhase { PreProcess, PostProcess }
 
   public abstract class StatModifierBase : ScriptableObject
   {
+    [DefaultFileName]
+    [SerializeField]
+    public string modifierName;
+
+    [SerializeField] protected StatData _stat;
     [SerializeField] protected Sprite _icon;
     [SerializeField] protected ParticleSystem _particleEffect;
-    [SerializeField] protected int _stackMax = 1; // -1 for infinite stacks
 
+    [NonSerialized] protected MonoBehaviour _statModifierHandlerType;
+    protected ModifierPhase _modPhase;
+
+    public StatData Stat => _stat;
+    public MonoBehaviour HandlerPrefab => _statModifierHandlerType;
     public Sprite Icon => _icon;
     public ParticleSystem ParticleEffect => _particleEffect;
-    public int StackMax => _stackMax;
-    public abstract ModifierType Type { get; }
-
-    public abstract void Apply(CharacterData characterData, float value, int stackCount);
-
-    public abstract void Remove(CharacterData characterData, float value, int stackCount);
+    public ModifierPhase Phase => _modPhase;
   }
 }

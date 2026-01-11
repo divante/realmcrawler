@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf8b7455d095d984a88560dc2926b4e1, type: 3}
+  m_Name: Lightning Damage
+  m_EditorClassIdentifier: Assembly-CSharp::RealmCrawler.CharacterStats.StatData
+  uuid: e5f6a7b8-c9d0-41e2-f3a4-b5c6d7e8f9a0
+  statName: Lightning Damage
+  baseValue: 0
+  _icon: {fileID: 0}

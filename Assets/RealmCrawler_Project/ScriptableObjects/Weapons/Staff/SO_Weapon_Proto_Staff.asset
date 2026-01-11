@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d48fa84301eec384bae495a51f1a5eda, type: 3}
   m_Name: SO_Weapon_Proto_Staff
   m_EditorClassIdentifier: Assembly-CSharp::RealmCrawler.Equipment.WeaponData
-  weaponName: Proto_Staff
-  description: This weapon is for testing purposes. It does not reflect a finish
-    object.
-  icon: {fileID: 21300000, guid: 29f914d036fc3004ea9581ee35e63a24, type: 3}
+  itemName: SO_Weapon_Proto_Staff
+  flavorText: Prototype for Equipment Weapon Staff
+  itemIcon: {fileID: 0}
+  rarity: 0
   primaryCantrip: {fileID: 11400000, guid: cfeb585bd33a1f14caf83787d9c371bf, type: 2}
   secondaryCantrip: {fileID: 11400000, guid: d560c6cd669ea064d984995a9dde32e9, type: 2}
+  staticModifier: {fileID: 0}
+  secondaryModifiers: []
   damageMultiplier: 1.2
   buffedElement: 1
   elementDamageBonus: 0.2

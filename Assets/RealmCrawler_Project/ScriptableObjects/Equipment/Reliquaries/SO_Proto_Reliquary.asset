@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b197b59cd5181a34a94fddac25d62e8e, type: 3}
   m_Name: SO_Proto_Reliquary
   m_EditorClassIdentifier: Assembly-CSharp::RealmCrawler.Equipment.ReliquaryData
-  equipmentName: Proto Reliquary
-  description: This equipment is for testing purposes. It does not reflect a finish
-    object.
-  icon: {fileID: 0}
+  itemName: Proto Reliquary
+  flavorText: This is a test Reliquary equipment. This Reliquary is Prototype Reliquary
+    I. Common Rarity with Static Modifie
+  itemIcon: {fileID: 0}
   category: 3
+  rarity: 0
+  spell: {fileID: 0}
+  staticModifier: {fileID: 0}
+  modifiers: []
   rentalCost: 0
   visualPrefab: {fileID: 8095954848969103863, guid: 1b87aa8880546eb41b7b36d12358c01a, type: 3}
-  xpCollectRadiusBonus: 3

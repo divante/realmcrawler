@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ba0b7b8038659146b4378108a27a106, type: 3}
+  m_Name: Idle State
+  m_EditorClassIdentifier: Assembly-CSharp::StateData
+  stateName: Idle State
+  transitions:
+  - rid: 8122578629074354245
+  references:
+    version: 2
+    RefIds:
+    - rid: 8122578629074354245
+      type: {class: SimpleStateTransition, ns: , asm: Assembly-CSharp}
+      data:
+        _transitionName: Idle State
+        targetState: {fileID: 11400000, guid: 217e47be261b3e74791eeb5ddef8448c, type: 2}
+        condition:
+          rid: 8122578629074354246
+    - rid: 8122578629074354246
+      type: {class: IsMovingCondition, ns: , asm: Assembly-CSharp}
+      data:
+        conditionName: 

@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fabcbefaa96e9e4a9bf1bf3b7ec3db2, type: 3}
   m_Name: SO_Proto_Boots
   m_EditorClassIdentifier: Assembly-CSharp::RealmCrawler.Equipment.BootsData
-  equipmentName: Proto Boots
-  description: This equipment is for testing purposes. It does not reflect a finish
-    object.
-  icon: {fileID: 0}
+  itemName: SO_Proto_Boots
+  flavorText: 
+  itemIcon: {fileID: 0}
   category: 2
+  rarity: 0
+  spell: {fileID: 0}
+  staticModifier: {fileID: 0}
+  modifiers: []
   rentalCost: 0
   visualPrefab: {fileID: 6542648602330398799, guid: a3c245503d734984d9334c302b7f727a, type: 3}
-  speedMultiplier: 1.3

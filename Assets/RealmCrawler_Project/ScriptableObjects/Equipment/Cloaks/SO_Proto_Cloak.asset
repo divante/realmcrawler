@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18d57fbed3c1be647bcf2c2d49a6f111, type: 3}
   m_Name: SO_Proto_Cloak
   m_EditorClassIdentifier: Assembly-CSharp::RealmCrawler.Equipment.CloakData
-  equipmentName: Proto Cloak
-  description: This equipment is for testing purposes. It does not reflect a finish
-    object.
-  icon: {fileID: 0}
+  itemName: Proto Cloak I
+  flavorText: This is a test Cloak equipment. This Cloak is Prototype Cloak I. Common
+    Rarity with Static Modifier
+  itemIcon: {fileID: 0}
   category: 1
+  rarity: 0
+  spell: {fileID: 0}
+  staticModifier: {fileID: 11400000, guid: 2257a13b13332fe4489924b100be47f3, type: 2}
+  modifiers: []
   rentalCost: 0
   visualPrefab: {fileID: 6595688988162227566, guid: d1137aaa43e36b24bb5324d319c12890, type: 3}
-  healthBonus: 50

@@ -1,0 +1,60 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <Style src="project://database/Assets/RealmCrawler_Project/UI/HubStyles.uss" />
+    
+    <ui:VisualElement name="root" picking-mode="Ignore" class="chest-container">
+        <!-- Back Button - Bottom Left -->
+        <ui:VisualElement style="position: absolute; bottom: 20px; left: 20px; z-index: 1000;">
+            <ui:Button name="back-button" text="← BACK" class="back-button" />
+        </ui:VisualElement>
+        
+        <!-- Main Container with Two Panels -->
+        <ui:VisualElement style="flex-direction: row; flex-grow: 1; padding: 80px 20px 80px 20px;" picking-mode="Ignore">
+            
+            <!-- LEFT PANEL: Inventory List -->
+            <ui:VisualElement style="flex-grow: 1; min-width: 400px; margin-right: 20px;">
+                <!-- Header with Category Tabs -->
+                <ui:VisualElement class="chest-header" style="margin-bottom: 15px;">
+                    <ui:Label name="category-label" text="All Items" class="panel-title" style="font-size: 28px; color: white; margin-bottom: 10px;" />
+                    
+                    <ui:VisualElement class="category-tabs" style="flex-direction: row; flex-wrap: wrap; gap: 5px;">
+                        <ui:Button name="all-tab" text="ALL" class="category-tab category-tab--active" />
+                        <ui:Button name="hat-tab" text="HATS" class="category-tab" />
+                        <ui:Button name="cloak-tab" text="CLOAKS" class="category-tab" />
+                        <ui:Button name="boots-tab" text="BOOTS" class="category-tab" />
+                        <ui:Button name="weapon-tab" text="WEAPONS" class="category-tab" />
+                        <ui:Button name="reliquary-tab" text="RELIQUARIES" class="category-tab" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                
+                <!-- Inventory Grid -->
+                <ui:ListView name="inventory-list" style="flex-grow: 1; min-height: 400px;">
+                    <!-- Inventory items will be populated here -->
+                </ui:ListView>
+            </ui:VisualElement>
+            
+            <!-- RIGHT PANEL: Equipment Detail -->
+            <ui:VisualElement name="equipment-detail" style="width: 350px; min-width: 350px; background-color: rgba(20, 20, 20, 0.95); padding: 20px; border-radius: 8px; display: none;">
+                
+                <ui:Label text="ITEM DETAILS" style="font-size: 22px; color: white; margin-bottom: 15px; -unity-text-align: upper-center; -unity-font-style: bold;" />
+                
+                <!-- Item Icon -->
+                <ui:VisualElement name="detail-icon" style="width: 150px; height: 150px; margin: 0 auto 20px auto; background-color: rgba(50, 50, 50, 0.8); border-radius: 8px; border-width: 2px; border-color: rgba(100, 100, 100, 0.5);" />
+                
+                <!-- Item Name -->
+                <ui:Label name="detail-name" text="Item Name" style="font-size: 24px; color: rgb(255, 215, 0); margin-bottom: 10px; -unity-text-align: upper-center; -unity-font-style: bold;" />
+                
+                <!-- Item Stats/Description -->
+                <ui:ScrollView style="flex-grow: 1;">
+                    <ui:Label name="detail-stats" text="Stats will appear here" style="font-size: 16px; color: white; white-space: normal;" picking-mode="Ignore" />
+                </ui:ScrollView>
+                
+            </ui:VisualElement>
+            
+            <!-- Placeholder when no item selected -->
+            <ui:VisualElement name="no-selection-panel" style="width: 350px; min-width: 350px; background-color: rgba(20, 20, 20, 0.7); padding: 20px; border-radius: 8px; align-items: center; justify-content: center;">
+                <ui:Label text="← Select an item to view details" style="font-size: 18px; color: rgba(150, 150, 150, 1); white-space: normal; -unity-text-align: middle-center;" />
+            </ui:VisualElement>
+            
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

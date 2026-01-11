@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7e2aff5dfb9a774c9669e624667bbd6, type: 3}
+  m_Name: SO_Proto_Hat_II
+  m_EditorClassIdentifier: Assembly-CSharp::RealmCrawler.Equipment.HatData
+  itemName: Proto Hat II
+  flavorText: This is a test Hat equipment. This Hat is Prototype Hat II. Uncommon
+    Rarity with Static Modifier, and single Random Modifier
+  itemIcon: {fileID: 0}
+  category: 0
+  rarity: 1
+  spell: {fileID: 0}
+  staticModifier: {fileID: 11400000, guid: 35cc6fc62a9fb2842b4ca8da127ac4e1, type: 2}
+  modifiers:
+  - {fileID: 11400000, guid: 2c7d369c1c3cbfa46885715350a533ee, type: 2}
+  rentalCost: 0
+  visualPrefab: {fileID: 6634839537026269982, guid: abaf8765ca203f6458ba204e4d56e766, type: 3}

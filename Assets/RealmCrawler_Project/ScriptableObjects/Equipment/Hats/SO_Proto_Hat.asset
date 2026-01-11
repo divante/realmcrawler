@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7e2aff5dfb9a774c9669e624667bbd6, type: 3}
   m_Name: SO_Proto_Hat
   m_EditorClassIdentifier: Assembly-CSharp::RealmCrawler.Equipment.HatData
-  equipmentName: Proto Hat
-  description: This equipment is for testing purposes. It does not reflect a finish
-    object.
-  icon: {fileID: 0}
+  itemName: Proto Hat I
+  flavorText: This is a test Hat equipment. This Hat is Prototype Hat I. Common Rarity
+    with Static Modifier
+  itemIcon: {fileID: 0}
   category: 0
+  rarity: 0
+  spell: {fileID: 0}
+  staticModifier: {fileID: 11400000, guid: 35cc6fc62a9fb2842b4ca8da127ac4e1, type: 2}
+  modifiers: []
   rentalCost: 0
   visualPrefab: {fileID: 6634839537026269982, guid: abaf8765ca203f6458ba204e4d56e766, type: 3}
-  manaBonus: 20
