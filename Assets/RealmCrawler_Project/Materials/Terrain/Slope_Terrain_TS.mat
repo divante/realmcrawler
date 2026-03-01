@@ -127,8 +127,8 @@ Material:
     - _AddPrecomputedVelocity: 0
     - _AlphaClip: 0
     - _AlphaToMask: 0
-    - _BaseColor_Step: 0.433
-    - _BaseShade_Feather: 0.268
+    - _BaseColor_Step: 0.469
+    - _BaseShade_Feather: 0.355
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
@@ -157,7 +157,7 @@ Material:
     - _ReceiveShadows: 1
     - _RimIntensity: 0.668
     - _RimPower: 4.88
-    - _SlopeBlend: 0.128
+    - _SlopeBlend: 0.135
     - _SlopeThreshold: 0.421
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
