@@ -14,12 +14,12 @@ public class StateRuntime : IStateRuntime
 
   private StateDefinition _currentDef;
   private List<StateTransitionBase> _activeTransitions = new();
+  private List<ActionRuntime> _activeActions = new();
 
 
   public StateRuntime(GameObject controlledObject, StateDefinition startingState)
   {
     _controlledObject = controlledObject;
-    Debug.Log("instantiated " + startingState.stateName);
     Enter(startingState);
   }
 
@@ -36,23 +36,28 @@ public class StateRuntime : IStateRuntime
       runtimeTrans.TransitionRequested += OnTransitionRequested;
 
       _activeTransitions.Add(runtimeTrans);
-
-      Debug.Log("Initializing transition " + runtimeTrans.TransitionName + " for state " + _currentDef.stateName);
-      Debug.Log("Transition target state: " + runtimeTrans.targetState.stateName);
     }
+
+    foreach (var actionDef in _currentDef.actions)
+    {
+      var actionRuntime = actionDef.Runtime(_controlledObject);
+      _activeActions.Add(actionRuntime);
+      actionRuntime.Activate();
+    }
+
     OnStateEnter?.Invoke(_currentDef);
+    Debug.Log("Entering state " + _currentDef.stateName);
   }
 
   public virtual void Exit()
   {
     foreach (var rt in _activeTransitions)
-      rt.TransitionRequested -= OnTransitionRequested;
-    // do these in seperate steps to ensure there is no conflict/concurrency
-    foreach (var rt in _activeTransitions)
       rt.Deactivate(_currentDef);
-
     _activeTransitions.Clear();
 
+    foreach (var action in _activeActions)
+      action.Deactivate();
+    _activeActions.Clear();
 
     OnStateExit?.Invoke(_currentDef);
     _currentDef = null;
@@ -70,8 +75,16 @@ public class StateRuntime : IStateRuntime
     Enter(targetDef);
   }
 
-  public virtual void Update() { }
+  public virtual void Update()
+  {
+    foreach (StateTransitionBase rt in _activeTransitions) rt.Update();
+    foreach (ActionRuntime rt in _activeActions) rt.Update();
+  }
 
-  public virtual void FixedUpdate() { }
+  public virtual void FixedUpdate()
+  {
+    foreach (StateTransitionBase rt in _activeTransitions) rt.FixedUpdate();
+    foreach (ActionRuntime rt in _activeActions) rt.FixedUpdate();
+  }
 
 }

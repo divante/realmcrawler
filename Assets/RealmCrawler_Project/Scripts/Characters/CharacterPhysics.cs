@@ -21,8 +21,6 @@ public class CharacterPhysics : MonoBehaviour, ICharacterPhysics
 
   private Rigidbody rigidbodyComponent;
 
-
-
   void Start()
   {
     rigidbodyComponent = GetComponent<Rigidbody>();
@@ -36,6 +34,11 @@ public class CharacterPhysics : MonoBehaviour, ICharacterPhysics
       desiredDirection.Normalize();
 
     direction = desiredDirection;
+  }
+
+  public void StopMove()
+  {
+    direction = Vector2.zero;
   }
 
   void Update()

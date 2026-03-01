@@ -13,7 +13,23 @@ MonoBehaviour:
   m_Name: Moving State
   m_EditorClassIdentifier: Assembly-CSharp::StateData
   stateName: Moving State
-  transitions: []
+  transitions:
+  - rid: 8122578675024527430
+  actions:
+  - {fileID: 11400000, guid: d5e8172993f94ea4c92ea42a54ae918f, type: 2}
+  - {fileID: 11400000, guid: 7a88d40fb747a6547bde086fb9c8f022, type: 2}
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 8122578675024527430
+      type: {class: SimpleStateTransition, ns: , asm: Assembly-CSharp}
+      data:
+        _transitionName: To Idle
+        targetState: {fileID: 11400000, guid: 7a63441b6021c33499337676c1ada5ef, type: 2}
+        condition:
+          rid: 8122578675024527434
+    - rid: 8122578675024527434
+      type: {class: IsMovingCondition, ns: , asm: Assembly-CSharp}
+      data:
+        _conditionName: Not Moving
+        _invert: 1

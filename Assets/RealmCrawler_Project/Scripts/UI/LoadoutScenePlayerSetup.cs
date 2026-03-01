@@ -24,10 +24,10 @@ namespace RealmCrawler.UI
                 Debug.Log("Disabled PlayerInput in loadout scene.");
             }
 
-            PlayerController playerController = GetComponent<PlayerController>();
+            ICharacterController playerController = GetComponent<ICharacterController>();
             if (playerController != null)
             {
-                playerController.enabled = false;
+                playerController.Disable();
                 Debug.Log("Disabled PlayerController in loadout scene.");
             }
 

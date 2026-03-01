@@ -15,7 +15,7 @@ Material:
   - _EMISSIVE_SIMPLE
   - _IS_CLIPPING_OFF
   - _IS_OUTLINE_CLIPPING_NO
-  - _OUTLINE_NML
+  - _OUTLINE_POS
   m_InvalidKeywords:
   - TOON_OUTLINE_NORMAL
   m_LightmapFlags: 4
@@ -131,7 +131,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 1c1db240fbe2d394b8a821ceb9d6cf74, type: 3}
+        m_Texture: {fileID: 2800000, guid: 79c87adb32c4ada4cb71fcae7ad3ef5e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskMap:
@@ -151,7 +151,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: 4d4c7b3921e041f4895ce279a2a17eff, type: 3}
+        m_Texture: {fileID: 2800000, guid: 991453ea3597b7e488bdca47c1865f4c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMapForMatCap:
@@ -399,7 +399,7 @@ Material:
     - _Nearest_Distance: 0.5
     - _NormalMapSpace: 0
     - _NormalScale: 1
-    - _OUTLINE: 0
+    - _OUTLINE: 1
     - _ObjectSpaceUVMapping: 0
     - _OcclusionStrength: 1
     - _Offset_X_Axis_BLD: -0.05

@@ -29,4 +29,7 @@ public sealed class SimpleStateTransition : StateTransitionBase
 
   private void OnConditionMet() => NotifyTransitionRequested();
 
+  public override void Update() { condition?.Update(); }
+  public override void FixedUpdate() { condition?.FixedUpdate(); }
+
 }

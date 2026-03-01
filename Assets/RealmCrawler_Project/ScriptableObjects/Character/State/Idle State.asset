@@ -15,17 +15,20 @@ MonoBehaviour:
   stateName: Idle State
   transitions:
   - rid: 8122578629074354245
+  actions:
+  - {fileID: 11400000, guid: 7a88d40fb747a6547bde086fb9c8f022, type: 2}
   references:
     version: 2
     RefIds:
     - rid: 8122578629074354245
       type: {class: SimpleStateTransition, ns: , asm: Assembly-CSharp}
       data:
-        _transitionName: Idle State
+        _transitionName: To Moving
         targetState: {fileID: 11400000, guid: 217e47be261b3e74791eeb5ddef8448c, type: 2}
         condition:
           rid: 8122578629074354246
     - rid: 8122578629074354246
       type: {class: IsMovingCondition, ns: , asm: Assembly-CSharp}
       data:
-        conditionName: 
+        _conditionName: Is Moving Condition
+        _invert: 0

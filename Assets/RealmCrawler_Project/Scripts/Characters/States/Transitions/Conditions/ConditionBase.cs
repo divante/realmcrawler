@@ -9,22 +9,22 @@ public abstract class ConditionBase
 {
   [DefaultFileName]
   [SerializeField]
-  public string conditionName;
+  public string _conditionName;
 
   public event Action ConditionMet;
 
   protected StateRuntime _state;
+  protected bool _isValid = false;
 
-  public virtual bool Evaluate()
-  {
-    return false;
-  }
+  public virtual bool Evaluate() => _isValid;
 
   public virtual void Initialize(StateRuntime state)
   {
     _state = state;
     _state.OnStateEnter += Activate;
     _state.OnStateExit += Deactivate;
+    // Debug.Log("Initialized condition " + _conditionName);
+
   }
 
   public virtual void Activate(StateDefinition stateDefinition) { }
@@ -32,5 +32,8 @@ public abstract class ConditionBase
   public virtual void Deactivate(StateDefinition stateDefinition) => ConditionMet = null;
 
   protected void NotifyConditionMet() => ConditionMet?.Invoke();
+
+  public virtual void Update() { }
+  public virtual void FixedUpdate() { }
 
 }

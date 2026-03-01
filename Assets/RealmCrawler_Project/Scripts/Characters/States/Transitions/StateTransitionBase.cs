@@ -27,6 +27,7 @@ public abstract class StateTransitionBase : ICloneable
     _state = state;
     _state.OnStateEnter += Activate;
     _state.OnStateExit += Deactivate;
+    Debug.Log("Initialized transition " + _transitionName);
   }
 
   public virtual void Activate(StateDefinition stateDefinition) { }
@@ -40,4 +41,7 @@ public abstract class StateTransitionBase : ICloneable
     string json = JsonUtility.ToJson(this);
     return JsonUtility.FromJson(json, GetType());
   }
+
+  public virtual void Update() { }
+  public virtual void FixedUpdate() { }
 }

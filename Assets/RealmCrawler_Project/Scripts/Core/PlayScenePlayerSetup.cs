@@ -23,10 +23,10 @@ namespace RealmCrawler.Core
                 if (logSetup) Debug.Log("✅ Enabled PlayerInput in play scene.");
             }
 
-            PlayerController playerController = GetComponent<PlayerController>();
+            ICharacterController playerController = GetComponent<ICharacterController>();
             if (playerController != null)
             {
-                playerController.enabled = true;
+                playerController.Enable();
                 if (logSetup) Debug.Log("✅ Enabled PlayerController in play scene.");
             }
 

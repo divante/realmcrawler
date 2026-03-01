@@ -4,56 +4,56 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour, ICharacterController
 {
-  public event Action<Vector2> OnMoveEvent;
-  public event Action<Vector2> OnLookEvent;
+  public event Action<Vector2> MoveEvent;
+  public event Action<Quaternion> LookEvent;
 
-  public float rotationSpeed = 5f;
+  [SerializeField] private float _rotationSpeed = 5f;
+  private Vector2 _currentMoveInput;
+  private Vector2 _prevMoveInput;
+  private Vector2 _mousePosition;
 
-  public Vector2 currentMoveInput { get; private set; }
-  public Vector2 mousePosition { get; private set; }
+  private Quaternion _lookDirection;
+  private Quaternion _prevLookDirection;
 
-  // private StateMachine stateMachine;
-
-  void Start()
-  {
-    // stateMachine = new StateMachine();
-    // stateMachine.Initialize(new IdleState(gameObject));
-  }
-
-  void Update()
-  {
-    // stateMachine.Update();
-    HandleRotation();
-  }
-
-  void FixedUpdate()
-  {
-    // stateMachine.FixedUpdate();
-  }
+  public Vector2 GetMovement() => _currentMoveInput;
+  public Quaternion GetLookDirection() => _lookDirection;
 
   public void OnMove(InputAction.CallbackContext context)
   {
-    currentMoveInput = context.ReadValue<Vector2>();
-    OnMoveEvent?.Invoke(currentMoveInput);
+    _currentMoveInput = context.ReadValue<Vector2>();
+    if (_currentMoveInput == _prevMoveInput) return;
+
+    MoveEvent?.Invoke(_currentMoveInput);
+    _prevMoveInput = _currentMoveInput;
   }
 
   public void OnMouseMove(InputAction.CallbackContext context)
   {
-    mousePosition = context.ReadValue<Vector2>();
-    OnLookEvent?.Invoke(mousePosition);
-  }
+    _mousePosition = context.ReadValue<Vector2>();
 
-  public void HandleRotation()
-  {
-    Ray cameraRay = Camera.main.ScreenPointToRay(mousePosition);
+    Ray cameraRay = Camera.main.ScreenPointToRay(_mousePosition);
     RaycastHit cameraRayHit;
 
     if (!Physics.Raycast(cameraRay, out cameraRayHit))
       return;
 
-    Vector3 targetPosition = new Vector3(cameraRayHit.point.x, transform.position.y, cameraRayHit.point.z);
-    Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
+    // get GameObject this script is attached to
 
-    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+    Vector3 targetPosition = new Vector3(cameraRayHit.point.x, transform.position.y, cameraRayHit.point.z);
+    _lookDirection = Quaternion.LookRotation(targetPosition - transform.position);
+
+    if (_lookDirection != null && _lookDirection == _prevLookDirection) return;
+
+    LookEvent?.Invoke(_lookDirection);
+    _prevLookDirection = _lookDirection;
+  }
+
+  public void Disable()
+  {
+  }
+
+  public void Enable()
+  {
   }
 }

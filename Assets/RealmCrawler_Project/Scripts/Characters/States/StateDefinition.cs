@@ -13,4 +13,8 @@ public class StateDefinition : ScriptableObject
   [SerializeReference]
   [SelectImplementation]
   public List<StateTransitionBase> transitions = new();
+
+  [SerializeReference]
+  public List<ActionDefinition> actions = new();
+  
 }

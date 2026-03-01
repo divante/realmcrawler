@@ -23,12 +23,12 @@ public class StateMachine : MonoBehaviour
 
   public void Update()
   {
-
+    _runtime?.Update();
   }
 
   public void FixedUpdate()
   {
-
+    _runtime?.FixedUpdate();
   }
 
 
