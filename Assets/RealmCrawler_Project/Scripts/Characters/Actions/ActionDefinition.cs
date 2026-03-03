@@ -1,25 +1,26 @@
 using UnityEngine;
 
 [CreateAssetMenu(
-		fileName = "New State",
-		menuName = "RealmCrawler/Characters/Actions/Basic")]
+    fileName = "New Action",
+    menuName = "RealmCrawler/Characters/Actions/Action")]
 public class ActionDefinition : ScriptableObject
 {
-	[DefaultFileName]
-	[SerializeField]
-	public string actionName;
+    [SerializeField]
+    [DefaultFileName]
+    public string actionName;
 
-	[SerializeReference]
-	[SelectImplementation]
-	public ActionRuntime actionRuntime = null;
+    [SerializeReference]
+    [SelectImplementation]
+    public ActionRuntime actionRuntime = null;
 
-	public ActionRuntime Runtime(GameObject owner)
-	{
-		var newRef = (ActionRuntime)actionRuntime?.Clone();
+    public ActionRuntime Runtime(GameObject owner)
+    {
+        var newRef = (ActionRuntime)actionRuntime?.Clone();
 
-		if (newRef == null) newRef = new ActionRuntime();
+        if (newRef == null)
+            newRef = new ActionRuntime();
 
-		newRef.Initialize(this, owner);
-		return (ActionRuntime)newRef;
-	}
+        newRef.Initialize(this, owner);
+        return newRef;
+    }
 }
