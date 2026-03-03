@@ -7,6 +7,18 @@ using RealmCrawler.CharacterStats;
 
 namespace RealmCrawler.Equipment
 {
+    [Serializable]
+    public class ComboNode
+    {
+        public CantripData hit;
+
+        [SerializeReference]
+        public ComboNode lightNext;
+
+        [SerializeReference]
+        public ComboNode heavyNext;
+    }
+
     [CreateAssetMenu(fileName = "New Weapon", menuName = "RealmCrawler/Equipment/Weapon Data")]
     public class WeaponData : ScriptableObject
     {
@@ -19,9 +31,9 @@ namespace RealmCrawler.Equipment
         [Header("Classification")]
         [SerializeField] private ItemRarity rarity = ItemRarity.Common;
 
-        [Header("Cantrips")]
-        [SerializeField] private CantripData primaryCantrip;
-        [SerializeField] private CantripData secondaryCantrip;
+        [Header("Combo Tree")]
+        [SerializeField] private ComboNode lightComboRoot;
+        [SerializeField] private ComboNode heavyComboRoot;
 
         [Header("Stat Modifiers")]
         [SerializeField] private StatModifierBase staticModifier;
@@ -43,8 +55,12 @@ namespace RealmCrawler.Equipment
         public string FlavorText => flavorText;
         public Sprite ItemIcon => itemIcon;
         public ItemRarity Rarity => rarity;
-        public CantripData PrimaryCantrip => primaryCantrip;
-        public CantripData SecondaryCantrip => secondaryCantrip;
+        public ComboNode LightComboRoot => lightComboRoot;
+        public ComboNode HeavyComboRoot => heavyComboRoot;
+
+        // UI compatibility — returns the first hit in each combo chain
+        public CantripData PrimaryCantrip => lightComboRoot?.hit;
+        public CantripData SecondaryCantrip => heavyComboRoot?.hit;
         public StatModifierBase StaticModifier => staticModifier;
         public IReadOnlyList<StatModifierBase> SecondaryModifiers => secondaryModifiers;
         public float DamageMultiplier => damageMultiplier;

@@ -18,6 +18,13 @@ public class CharacterAnimationController : MonoBehaviour
   private static readonly int animParamForwardHash = Animator.StringToHash("MovementForward");
   private static readonly int animParamTurningHash = Animator.StringToHash("TurningSpeed");
 
+  public static readonly int AnimTriggerLightAttack = Animator.StringToHash("LightAttack");
+  public static readonly int AnimTriggerHeavyAttack = Animator.StringToHash("HeavyAttack");
+  public static readonly int AnimTriggerSpellCast   = Animator.StringToHash("SpellCast");
+  public static readonly int AnimTriggerStagger      = Animator.StringToHash("Stagger");
+
+  public void TriggerCombat(int triggerHash) => animator.SetTrigger(triggerHash);
+
   // Start is called once before the first execution of Update after the MonoBehaviour is created
   void Start()
   {

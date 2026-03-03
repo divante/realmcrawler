@@ -7,6 +7,11 @@ public class PlayerController : MonoBehaviour, ICharacterController
   public event Action<Vector2> MoveEvent;
   public event Action<Quaternion> LookEvent;
 
+  public event Action AttackLightEvent;
+  public event Action AttackHeavyEvent;
+  public event Action<int> SpellCastPressedEvent;
+  public event Action<int> SpellCastReleasedEvent;
+
   [SerializeField] private float _rotationSpeed = 5f;
   private Vector2 _currentMoveInput;
   private Vector2 _prevMoveInput;
@@ -47,6 +52,27 @@ public class PlayerController : MonoBehaviour, ICharacterController
 
     LookEvent?.Invoke(_lookDirection);
     _prevLookDirection = _lookDirection;
+  }
+
+  public void OnAttackLight(InputAction.CallbackContext context)
+  {
+    if (context.started) AttackLightEvent?.Invoke();
+  }
+
+  public void OnAttackHeavy(InputAction.CallbackContext context)
+  {
+    if (context.started) AttackHeavyEvent?.Invoke();
+  }
+
+  public void OnSpell1(InputAction.CallbackContext context) => HandleSpellInput(context, 0);
+  public void OnSpell2(InputAction.CallbackContext context) => HandleSpellInput(context, 1);
+  public void OnSpell3(InputAction.CallbackContext context) => HandleSpellInput(context, 2);
+  public void OnSpell4(InputAction.CallbackContext context) => HandleSpellInput(context, 3);
+
+  private void HandleSpellInput(InputAction.CallbackContext context, int slot)
+  {
+    if (context.started)   SpellCastPressedEvent?.Invoke(slot);
+    if (context.canceled)  SpellCastReleasedEvent?.Invoke(slot);
   }
 
   public void Disable()

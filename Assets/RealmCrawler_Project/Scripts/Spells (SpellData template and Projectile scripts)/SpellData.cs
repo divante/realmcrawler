@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace RealmCrawler.Spells
@@ -17,6 +18,13 @@ namespace RealmCrawler.Spells
         Utility
     }
 
+    public enum SpellCastType
+    {
+        Instant,
+        Charged,
+        Channeled
+    }
+
     [CreateAssetMenu(fileName = "New Spell", menuName = "RealmCrawler/Spells/Spell Data")]
     public class SpellData : ScriptableObject
     {
@@ -29,14 +37,23 @@ namespace RealmCrawler.Spells
         [SerializeField] private SpellElement element;
         [SerializeField] private SpellType type;
 
-        [Header("Resource Costs")]
-        [SerializeField] private float manaCost = 10f;
-        [SerializeField] private float cooldownDuration = 2f;
+        [Header("Cast Type")]
+        [SerializeField] private SpellCastType castType = SpellCastType.Instant;
+        [SerializeField] private float maxChargeTime = 1.5f;
+        [SerializeField] private float chargeMultiplier = 2f;
+        [SerializeField] private float channelFireRate = 0.2f;
+        [SerializeField] private float maxChannelDuration = 3f;
+
+        [Header("Veil Cost")]
+        [SerializeField] private float veilCost = 0.05f;
 
         [Header("Damage & Effects")]
         [SerializeField] private float baseDamage = 10f;
         [SerializeField] private float aoeRadius = 0f;
         [SerializeField] private float debuffDuration = 0f;
+
+        [Header("Instability Mutations")]
+        [SerializeField] private List<SpellMutation> possibleMutations = new();
 
         [Header("Visuals & Audio")]
         [SerializeField] private GameObject spellPrefab;
@@ -47,11 +64,16 @@ namespace RealmCrawler.Spells
         public Sprite Icon => icon;
         public SpellElement Element => element;
         public SpellType Type => type;
-        public float ManaCost => manaCost;
-        public float CooldownDuration => cooldownDuration;
+        public SpellCastType CastType => castType;
+        public float MaxChargeTime => maxChargeTime;
+        public float ChargeMultiplier => chargeMultiplier;
+        public float ChannelFireRate => channelFireRate;
+        public float MaxChannelDuration => maxChannelDuration;
+        public float VeilCost => veilCost;
         public float BaseDamage => baseDamage;
         public float AoeRadius => aoeRadius;
         public float DebuffDuration => debuffDuration;
+        public IReadOnlyList<SpellMutation> PossibleMutations => possibleMutations;
         public GameObject SpellPrefab => spellPrefab;
         public AudioClip CastSound => castSound;
     }
